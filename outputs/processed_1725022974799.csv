@@ -1,0 +1,3 @@
+"S. No.","Product Name","Input Image Urls","Output Image Urls"
+1,SKU1,https://images.unsplash.com/photo-1591154669695-5f2a8d20c089?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D,http://localhost:3001/compressed_images/processed_1_1
+2,SKU2,https://plus.unsplash.com/premium_photo-1683141154082-324d296f3c66?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D,http://localhost:3001/compressed_images/processed_2_1

@@ -1,20 +1,29 @@
 const express = require("express");
-const { getDB } = require("../services/database");
+const Image = require("../models/image");
 
 const router = express.Router();
 
-router.get("/status/:requestId", async (req, res) => {
-  const requestId = req.params.requestId;
-  const db = getDB();
-  const request = await db
-    .collection("image_processing_requests")
-    .findOne({ request_id: requestId });
+router.get("/:requestId", async (req, res) => {
+  const { requestId } = req.params;
 
-  if (!request) {
-    return res.status(404).json({ error: "Request ID not found" });
+  try {
+    const imageData = await Image.find({ requestId });
+    console.log("⚙️  | imageData :", imageData);
+    if (imageData.length > 0) {
+      const outputFilePath = `http://localhost:3001/outputs/processed_${requestId}.csv`;
+      res
+        .status(200)
+        .json({
+          status: "completed",
+          data: imageData,
+          downloadLink: outputFilePath,
+        });
+    } else {
+      res.status(404).json({ status: "not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  res.json({ status: request.status });
 });
 
 module.exports = router;

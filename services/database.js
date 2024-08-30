@@ -1,18 +1,18 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 
-const uri = "mongodb://localhost:27017"; // MongoDB connection string
-const client = new MongoClient(uri, { useUnifiedTopology: true });
+mongoose.connect("mongodb://localhost:27017/image-processing", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-let db;
+const db = mongoose.connection;
 
-async function connectDB() {
-  await client.connect();
-  db = client.db("image_processing");
+db.on("error", (error) => {
+  console.error("Database connection error:", error);
+});
+
+db.once("open", () => {
   console.log("Connected to MongoDB");
-}
+});
 
-function getDB() {
-  return db;
-}
-
-module.exports = { connectDB, getDB };
+module.exports = db;
